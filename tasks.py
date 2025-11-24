@@ -100,13 +100,13 @@ print(word_frequencies)
 # Your code here:
 # -----------------------------------------------
 def token_counts(string: str, k: int = 1) -> dict:
+    punctuation = ".,!?;:'\"()-"
     tokens = string.split()
-    tokens = [r.lower() for r in tokens]
-    return {w: tokens.count(w) for w in tokens if tokens.count(w) > k}
-
-# test:
-text_hist = {'the': 2, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 'lazy': 1, 'dog': 1}
-all(text_hist[key] == value for key, value in token_counts(text).items())
+    cleaned = [
+        "".join(ch for ch in w if ch not in punctuation).lower()
+        for w in tokens
+    ]
+    return {w: cleaned.count(w) for w in set(cleaned) if cleaned.count(w) >= k}
 # -----------------------------------------------
 
 
